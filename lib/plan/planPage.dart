@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     Future<Database> database = initDatabase();
 
     return MaterialApp(
-      title: '계획 페이지',
+      title: '계획 생성 페이지',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
