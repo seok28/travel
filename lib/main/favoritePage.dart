@@ -113,7 +113,6 @@ class _FavoritePage extends State<FavoritePage> {
                   return const Text('No data');
                 }
             }
-            return CircularProgressIndicator();
           },
           future: _tourList,
         ),

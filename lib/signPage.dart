@@ -95,7 +95,6 @@ class _SignPage extends State<SignPage> {
                     _pwTextController!.value.text.length >= 6) {
                   if (_pwTextController!.value.text ==
                       _pwCheckTextController!.value.text) {
-                    // showsDialog(context);
                     var bytes = utf8.encode(_pwTextController!.value.text);
                     var digest = sha1.convert(bytes);
                     reference!
@@ -147,12 +146,6 @@ class _SignPage extends State<SignPage> {
           title: Text("회원가입 성공"),
           subtitle: Text("회원가입에 성공하였습니다"),
         ),
-        // actions: <Widget>[
-        //   FlatButton(
-        //     child: const Text('Ok'),
-        //     onPressed: () => Navigator.of(context).pop(),
-        //   ),
-        // ]
       ),
     );
   }

@@ -1,8 +1,5 @@
 // ignore: file_names
 // ignore_for_file: deprecated_member_use
-
-import 'dart:io';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -132,21 +129,6 @@ class _SettingPage extends State<SettingPage> {
                 },
                 child: const Text('회원 탈퇴', style: TextStyle(fontSize: 20)),
               ),
-              // SizedBox(
-              //   height: 50,
-              //   child:  Text(
-              //     '계획 페이지 이동',
-              //     style: TextStyle(fontSize: 20, color: Colors.white),
-              //   ),
-              // )
-
-              // if (_banner != null)
-              //   Container(
-              //     color: Colors.green,
-              //     width: _banner!.size.width.toDouble(),
-              //     height: _banner!.size.height.toDouble(),
-              //     child: AdWidget(ad: _banner!),
-              //   ),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),

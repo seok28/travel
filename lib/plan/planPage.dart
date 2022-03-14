@@ -6,15 +6,6 @@ import 'addPlan.dart'; // 계획 추가
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-// class PlanPage extends StatefulWidget {
-//   final DatabaseReference? databaseReference; // 실시간 데이터베이스 변수
-//   final Future<Database>? db; // 내부에 저장되는 데이터베이스
-//   final String? id; // 로그인한 아이디
-//   PlanPage({this.databaseReference, this.db, this.id});
-
-//   @override
-//   State<StatefulWidget> createState() => _PlanPage();
-// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
