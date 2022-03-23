@@ -65,7 +65,7 @@ class _DatabaseApp extends State<DatabaseApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('계획 페이지'), actions: <Widget>[
+        appBar: AppBar(title: const Text('계획 생성 페이지'), actions: <Widget>[
           ElevatedButton(
               onPressed: () async {
                 await Navigator.of(context).pushNamed('/clear');
