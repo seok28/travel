@@ -22,8 +22,6 @@ class SettingPage extends StatefulWidget {
 class _SettingPage extends State<SettingPage> {
   bool pushCheck = true;
 
- 
-
   @override
   void initState() {
     super.initState();
@@ -32,7 +30,6 @@ class _SettingPage extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('설정하기'),
@@ -117,6 +114,7 @@ class _SettingPage extends State<SettingPage> {
 
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 '/', (Route<dynamic> route) => false);
+                            FlutterDialog();
                           },
                           child: const Text('예')),
                       MaterialButton(
@@ -196,5 +194,44 @@ class _SettingPage extends State<SettingPage> {
         ],
       ),
     );
+  }
+
+  // ignore: non_constant_identifier_names
+  void FlutterDialog() {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: const <Widget>[
+                Text("Dialog Title"),
+              ],
+            ),
+            //
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const <Widget>[
+                Text(
+                  "Dialog Content",
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 }
