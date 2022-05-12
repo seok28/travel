@@ -1,5 +1,5 @@
 # kbu_final_project(졸업작품)
-
+한국성서대학교 4학년 1학기에 걸쳐 진행한 flutter 와 firebase를 이용한 졸업 작품
 ## 여행 계획 앱(flutter)
 여행지에 대한 정보(여행지 정보, 구글 맵,리뷰)와 계획 기능(to do list)을 이용한 간단한 앱
 ## 폴더 구조(lib)
