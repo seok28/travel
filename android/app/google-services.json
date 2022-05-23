@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "118132785022",
+    "project_id": "junsu-project-5a94e",
+    "storage_bucket": "junsu-project-5a94e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118132785022:android:a02465c400ee4a9a6e3d2f",
+        "android_client_info": {
+          "package_name": "com.kbu.junsu_project.junsu_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118132785022-e2ael09fplkiep9dvs9ibgbvevchu3ri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGQPILAxki08qtPqmzN8KHZrZdTdWxhYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118132785022-e2ael09fplkiep9dvs9ibgbvevchu3ri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
