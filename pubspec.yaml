@@ -38,6 +38,7 @@ dependencies:
   firebase_analytics: ^8.1.2
   firebase_database: ^7.1.1
   firebase_messaging: ^10.0.1 # 파이어베이스 메시징 패키지
+  google_mobile_ads: ^0.13.0  # 파이어베이스 에드몹
   http: ^0.13.1
   sqflite: ^2.0.0+3
   path: ^1.8.0

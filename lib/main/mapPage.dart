@@ -6,7 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:http/http.dart' as http;
 import 'package:junsu_project/data/tour.dart';
 import 'package:junsu_project/data/listData.dart';
-import 'package:path/path.dart';
+// import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:junsu_project/main/tourDetailPage.dart';
 
@@ -14,6 +14,7 @@ class MapPage extends StatefulWidget {
   final DatabaseReference? databaseReference; // 실시간 데이터베이스 변수
   final Future<Database>? db; // 내부에 저장되는 데이터베이스
   final String? id; // 로그인한 아이디
+  FirebaseDatabase database = FirebaseDatabase.instance;
   MapPage({this.databaseReference, this.db, this.id});
 
   @override
@@ -140,8 +141,8 @@ class _MapPage extends State<MapPage> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text('주소 : ${tourData[index].address}'),
-                                tourData[index].tel != null
-                                    ? Text('전화 번호 : ${tourData[index].tel}')
+                                tourData[index].tel != null ?
+                                     Text('전화 번호 : ${tourData[index].tel}')
                                     : Container(),
                               ],
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -158,7 +159,10 @@ class _MapPage extends State<MapPage> {
                                   index: index,
                                   databaseReference: widget.databaseReference,
                                 )));
-                      }, //onTap
+                      },
+                      onDoubleTap: () {
+                        insertTour(widget.db!, tourData[index]); //onTap
+                      },
                     ),
                   );
                 },
@@ -190,6 +194,17 @@ class _MapPage extends State<MapPage> {
     );
   }
 
+  void insertTour(Future<Database> db, TourData info) async {
+    final Database database = await db;
+    await database
+        .insert('place', info.toMap(),
+            conflictAlgorithm: ConflictAlgorithm.replace)
+        .then((value) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('즐겨찾기에 추가되었습니다')));
+    });
+  }
+
   ImageProvider getImage(String? imagePath) {
     if (imagePath != null) {
       return NetworkImage(imagePath);
@@ -213,13 +228,13 @@ class _MapPage extends State<MapPage> {
     var json = jsonDecode(body);
     if (json['response']['header']['resultCode'] == "0000") {
       if (json['response']['body']['items'] == '') {
-        // showDialog (
-        //     context: context,
-        //     builder: (context) {
-        //       return AlertDialog(
-        //         content: Text('마지막 데이터 입니다'),
-        //       );
-        //     });
+        showDialog (
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text('마지막 데이터 입니다'),
+              );
+            });
       } else {
         List jsonArray = json['response']['body']['items']['item'];
         for (var s in jsonArray) {
