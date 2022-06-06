@@ -5,6 +5,10 @@ import 'login.dart';
 import 'mainPage.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,11 +38,68 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginPage(),
+        '/': (context) {
+          return FutureBuilder(
+            future: Firebase.initializeApp(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error'),
+                );
+              }
+
+              if (snapshot.connectionState == ConnectionState.done) {
+                _getToken();
+                _initFirebaseMessaging(context);
+                return LoginPage();
+              }
+
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          );
+        },
         '/sign': (context) => SignPage(),
         '/main': (context) => MainPage(database),
-        '/plan': (context) => PlanPage(),
       },
     );
+  }
+
+  _initFirebaseMessaging(BuildContext context) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) async {
+      bool? pushCheck = await _loadData();
+      if (pushCheck!) {
+        showDialog(
+            context: context,
+            builder: (BuildContext) {
+              return AlertDialog(
+                title: Text(event.notification!.title!),
+                content: Text(event.notification!.body!),
+                actions: [
+                  TextButton(
+                    child: Text("ok"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            });
+      }
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
+  }
+   Future<bool?> _loadData() async {
+    var key = "push";
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var value = pref.getBool(key);
+    return value;
+  }
+
+   _getToken() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    // ignore: avoid_print
+    print("messaging.getToken() , ${await messaging.getToken()}");
   }
 }

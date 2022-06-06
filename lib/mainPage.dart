@@ -50,7 +50,10 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
               db: widget.database,
               id: id,
             ), // 즐겨 찾기
-            SettingPage(), // 설정 화면
+            SettingPage(
+              databaseReference: reference,
+              id: id,
+            ), // 설정 화면
           ],
           controller: controller,
         ),
