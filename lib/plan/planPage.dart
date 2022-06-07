@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart'; // 파이어베이스
-import 'data.dart'; // 계획 db
+import 'todo.dart'; // 계획 db
 import 'ClearList.dart'; // 계획 삭제
 import 'addPlan.dart'; // 계획 추가
 import 'package:sqflite/sqflite.dart';
@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => DatabaseApp(database),
-        // '/add': (context) => AddTodoApp(database),
-        // '/clear': (context) => ClearListApp(database)
+        '/add': (context) => AddPlanApp(database),
+        '/clear': (context) => ClearListApp(database)
       },
     );
   }
@@ -71,7 +71,7 @@ class _DatabaseApp extends State<DatabaseApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Database Example'), actions: <Widget>[
+        appBar: AppBar(title: Text('계획 페이지'), actions: <Widget>[
           ElevatedButton(
               onPressed: () async {
                 await Navigator.of(context).pushNamed('/clear');
