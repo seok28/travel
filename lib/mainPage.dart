@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'main/favoritePage.dart';
 import 'main/settingPage.dart';
 import 'main/mapPage.dart';
+import 'plan/planPage.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MainPage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller = TabController(length: 3, vsync: this);
+    controller = TabController(length: 4, vsync: this);
     _database = FirebaseDatabase(databaseURL: _databaseURL);
     reference = _database!.reference();
   }
@@ -49,7 +50,8 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
               databaseReference: reference,
               db: widget.database,
               id: id,
-            ), // 즐겨 찾기
+            ),
+            MyApp(), // 즐겨 찾기
             SettingPage(
               databaseReference: reference,
               id: id,
@@ -58,12 +60,15 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
           controller: controller,
         ),
         bottomNavigationBar: TabBar(
-          tabs: <Tab>[
+          tabs: const <Tab>[
             Tab(
               icon: Icon(Icons.map),
             ),
             Tab(
               icon: Icon(Icons.star),
+            ),
+            Tab(
+              icon: Icon(Icons.featured_play_list_rounded),
             ),
             Tab(
               icon: Icon(Icons.settings),

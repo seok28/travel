@@ -11,7 +11,8 @@ class SettingPage extends StatefulWidget {
   final DatabaseReference? databaseReference;
   final String? id;
 
-  SettingPage({this.databaseReference, this.id});
+  // ignore: use_key_in_widget_constructors
+  const SettingPage({this.databaseReference, this.id});
 
   @override
   State<StatefulWidget> createState() => _SettingPage();
@@ -75,15 +76,16 @@ class _SettingPage extends State<SettingPage> {
     // }
     return Scaffold(
       appBar: AppBar(
-        title: Text('설정하기'),
+        title: const Text('설정하기'),
       ),
+      // ignore: avoid_unnecessary_containers
       body: Container(
         child: Center(
           child: Column(
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     '푸시 알림',
                     style: TextStyle(fontSize: 20),
                   ),
@@ -98,32 +100,35 @@ class _SettingPage extends State<SettingPage> {
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               MaterialButton(
                 onPressed: () {
+                  showsDialog(context);
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       '/', (Route<dynamic> route) => false);
                 },
-                child: Text(
+                child: const Text(
                   '로그아웃',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 color: Colors.blueAccent,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               MaterialButton(
                 color: Colors.blueAccent,
                 onPressed: () {
-                  AlertDialog dialog = new AlertDialog(
-                    title: Text('아이디 삭제', style: TextStyle(color: Colors.red)),
-                    content: Text('아이디를 삭제하시겠습니까?'),
+                  AlertDialog dialog = AlertDialog(
+                    title: const Text('아이디 삭제',
+                        style: TextStyle(color: Colors.red)),
+                    content: const Text('아이디를 삭제하시겠습니까?'),
                     actions: <Widget>[
                       MaterialButton(
                           onPressed: () {
+                            // ignore: avoid_print
                             print(widget.id);
                             widget.databaseReference!
                                 .child('user')
@@ -132,12 +137,12 @@ class _SettingPage extends State<SettingPage> {
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 '/', (Route<dynamic> route) => false);
                           },
-                          child: Text('예')),
+                          child: const Text('예')),
                       MaterialButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text('아니요')),
+                          child: const Text('아니요')),
                     ],
                   );
                   showDialog(
@@ -146,8 +151,16 @@ class _SettingPage extends State<SettingPage> {
                         return dialog;
                       });
                 },
-                child: Text('회원 탈퇴', style: TextStyle(fontSize: 20)),
+                child: const Text('회원 탈퇴', style: TextStyle(fontSize: 20)),
               ),
+              // SizedBox(
+              //   height: 50,
+              //   child:  Text(
+              //     '계획 페이지 이동',
+              //     style: TextStyle(fontSize: 20, color: Colors.white),
+              //   ),
+              // )
+
               // if (_banner != null)
               //   Container(
               //     color: Colors.green,
@@ -191,13 +204,13 @@ void showsDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      content: ListTile(
+      content: const ListTile(
         title: Text("테스트"),
         subtitle: Text("테스트에 성공했어요"),
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok'),
+          child: const Text('Ok'),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ],

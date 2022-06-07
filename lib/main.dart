@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:junsu_project/plan/Planpage.dart';
+// import 'package:junsu_project/plan/Planpage.dart';
 import 'package:junsu_project/signPage.dart';
 import 'login.dart';
 import 'mainPage.dart';
@@ -8,7 +8,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -90,16 +89,17 @@ class MyApp extends StatelessWidget {
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
   }
-   Future<bool?> _loadData() async {
+
+  Future<bool?> _loadData() async {
     var key = "push";
     SharedPreferences pref = await SharedPreferences.getInstance();
     var value = pref.getBool(key);
     return value;
   }
 
-   _getToken() async {
+  _getToken() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-    // ignore: avoid_print
+
     print("messaging.getToken() , ${await messaging.getToken()}");
   }
 }
