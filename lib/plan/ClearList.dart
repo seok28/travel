@@ -27,7 +27,7 @@ class _ClearListApp extends State<ClearListApp> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('이미 한일'),
+        title: const Text('계획 상세 페이지'),
       ),
       body: Container(
         child: Center(
@@ -35,11 +35,11 @@ class _ClearListApp extends State<ClearListApp> {
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 case ConnectionState.waiting:
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 case ConnectionState.active:
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 case ConnectionState.done:
                   if (snapshot.hasData) {
                     return ListView.builder(
@@ -48,7 +48,7 @@ class _ClearListApp extends State<ClearListApp> {
                         return ListTile(
                           title: Text(
                             todo.title!,
-                            style: TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                           ),
                           subtitle: Container(
                             child: Column(

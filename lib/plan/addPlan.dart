@@ -6,7 +6,8 @@ import 'todo.dart';
 class AddPlanApp extends StatefulWidget {
   final Future<Database> db;
 
-  AddPlanApp(this.db);
+  // ignore: use_key_in_widget_constructors
+  const AddPlanApp(this.db);
 
   @override
   State<StatefulWidget> createState() => _AddPlanApp();
@@ -19,32 +20,32 @@ class _AddPlanApp extends State<AddPlanApp> {
   @override
   void initState() {
     super.initState();
-    titleController = new TextEditingController();
-    contentController = new TextEditingController();
+    titleController = TextEditingController();
+    contentController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todo 추가'),
+        title: const Text('Todo 추가'),
       ),
       body: Container(
         child: Center(
           child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: TextField(
                   controller: titleController,
-                  decoration: InputDecoration(labelText: '제목'),
+                  decoration: const InputDecoration(labelText: '제목'),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: TextField(
                   controller: contentController,
-                  decoration: InputDecoration(labelText: '할일'),
+                  decoration: const InputDecoration(labelText: '할일'),
                 ),
               ),
               ElevatedButton(
@@ -55,7 +56,7 @@ class _AddPlanApp extends State<AddPlanApp> {
                       active: 0);
                   Navigator.of(context).pop(todo);
                 },
-                child: Text('저장하기'),
+                child: const Text('저장하기'),
               )
             ],
           ),

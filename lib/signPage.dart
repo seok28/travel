@@ -14,7 +14,7 @@ class SignPage extends StatefulWidget {
 class _SignPage extends State<SignPage> {
   FirebaseDatabase? _database;
   DatabaseReference? reference;
-  String _databaseURL = 'https://junsu-project-5a94e-default-rtdb.firebaseio.com/';
+  final String _databaseURL = 'https://junsu-project-5a94e-default-rtdb.firebaseio.com/';
 
   TextEditingController? _idTextController;
   TextEditingController? _pwTextController;
@@ -35,7 +35,7 @@ class _SignPage extends State<SignPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('회원가입'),
+        title: const Text('회원가입'),
       ),
       body: Container(
         child: Center(
@@ -46,10 +46,10 @@ class _SignPage extends State<SignPage> {
                 child: TextField(
                   controller: _idTextController,
                   maxLines: 1,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: '4자 이상 입력해주세요',
                       labelText: '아이디', border: OutlineInputBorder()),),),
-              SizedBox(
+              const SizedBox(
                 height: 20,),
               SizedBox(
                 width: 200,
@@ -57,10 +57,10 @@ class _SignPage extends State<SignPage> {
                   controller: _pwTextController,
                   obscureText: true,
                   maxLines: 1,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: '6자 이상 입력해주세요',
                       labelText: '비밀번호', border: OutlineInputBorder()),),),
-              SizedBox(
+              const SizedBox(
                 height: 20,),
               SizedBox(
                 width: 200,
@@ -68,9 +68,9 @@ class _SignPage extends State<SignPage> {
                   controller: _pwCheckTextController,
                   obscureText: true,
                   maxLines: 1,
-                  decoration: InputDecoration(labelText: '비밀번호확인',
+                  decoration: const InputDecoration(labelText: '비밀번호확인',
                       border: OutlineInputBorder()),),),
-              SizedBox(
+              const SizedBox(
                 height: 20,),
               MaterialButton(
                 onPressed: () {
@@ -96,7 +96,7 @@ class _SignPage extends State<SignPage> {
                     makeDialog('길이가 짧습니다');
                   }
                 },
-                child: Text(
+                child: const Text(
                   '회원가입',
                   style: TextStyle(color: Colors.white),),
                 color: Colors.blueAccent,)],

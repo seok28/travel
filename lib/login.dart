@@ -31,11 +31,11 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
     _pwTextController = TextEditingController();
 
     _animationController =
-        AnimationController(duration: Duration(seconds: 3), vsync: this);
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
     _animation =
         Tween<double>(begin: 0, end: pi * 2).animate(_animationController!);
     _animationController!.repeat();
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       setState(() {
         opacity = 1; // 페이지 생성 후 2초 후 타이머 시작
       });
@@ -66,13 +66,13 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                     child: widget,
                   );
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.airplanemode_active,
                   color: Colors.deepOrangeAccent,
                   size: 80,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
                 child: Center(
                   child: Text(
@@ -83,7 +83,7 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
               ),
               AnimatedOpacity(
                 opacity: opacity,
-                duration: Duration(seconds: 1),
+                duration: const Duration(seconds: 1),
                 child: Column(
                   children: <Widget>[
                     SizedBox(
@@ -91,11 +91,11 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                       child: TextField(
                         controller: _idTextController,
                         maxLines: 1,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: '아이디', border: OutlineInputBorder()),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
@@ -104,7 +104,7 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                         controller: _pwTextController,
                         obscureText: true,
                         maxLines: 1,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             labelText: '비밀번호', border: OutlineInputBorder()),
                       ),
                     ),
@@ -114,7 +114,7 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                             onPressed: () {
                               Navigator.of(context).pushNamed('/sign');
                             },
-                            child: Text('회원가입')),
+                            child: const Text('회원가입')),
                         MaterialButton(
                             onPressed: () {
                               if (_idTextController?.value.text.length == 0 ||
@@ -150,7 +150,7 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                                 });
                               }
                             },
-                            child: Text('로그인'))
+                            child: const Text('로그인'))
                       ],
                       mainAxisAlignment: MainAxisAlignment.center,
                     )

@@ -79,17 +79,17 @@ class _TourDetailPage extends State<TourDetailPage> {
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 '${widget.tourData!.title}',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
               centerTitle: true,
-              titlePadding: EdgeInsets.only(top: 1),
+              titlePadding: const EdgeInsets.only(top: 1),
             ),
             pinned: true,
             backgroundColor: Colors.deepOrangeAccent,
           ),
           SliverList(
               delegate: SliverChildListDelegate([
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(

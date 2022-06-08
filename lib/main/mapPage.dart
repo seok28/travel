@@ -30,6 +30,7 @@ class _MapPage extends State<MapPage> {
       'k9FpTZ71Gf3BB%2FibO%2FJSQZT3TlCjWJU85r%2FkiumB2OKaueTUTwEj4gWI1nxdQ5EmfsTzmlMLA7vm0DDHjXC0qA%3D%3D'; // 국문 관광정보 apikey
   Item? area;
   Item? kind;
+  // ignore: unused_field
   TourData? _tourData;
   int page = 1;
 
@@ -40,7 +41,7 @@ class _MapPage extends State<MapPage> {
     sublist = Kind().kinds;
     area = list[0].value;
     kind = sublist[0].value;
-    _scrollController = new ScrollController();
+    _scrollController = ScrollController();
     _scrollController!.addListener(() {
       if (_scrollController!.offset >=
               _scrollController!.position.maxScrollExtent &&
@@ -55,7 +56,7 @@ class _MapPage extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('검색하기'),
+        title: const Text('검색하기'),
       ),
       body: Container(
         child: Center(
@@ -73,7 +74,7 @@ class _MapPage extends State<MapPage> {
                     },
                     items: list,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   DropdownButton<Item>(
@@ -86,7 +87,7 @@ class _MapPage extends State<MapPage> {
                     },
                     value: kind,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   MaterialButton(
@@ -141,8 +142,8 @@ class _MapPage extends State<MapPage> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text('주소 : ${tourData[index].address}'),
-                                tourData[index].tel != null ?
-                                     Text('전화 번호 : ${tourData[index].tel}')
+                                tourData[index].tel != null
+                                    ? Text('전화 번호 : ${tourData[index].tel}')
                                     : Container(),
                               ],
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -228,7 +229,7 @@ class _MapPage extends State<MapPage> {
     var json = jsonDecode(body);
     if (json['response']['header']['resultCode'] == "0000") {
       if (json['response']['body']['items'] == '') {
-        showDialog (
+        showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(

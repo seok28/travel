@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart'; // 파이어베이스
+// import 'package:firebase_database/firebase_database.dart'; // 파이어베이스
 import 'todo.dart'; // 계획 db
 import 'ClearList.dart'; // 계획 삭제
 import 'addPlan.dart'; // 계획 추가
@@ -17,6 +17,8 @@ import 'package:path/path.dart';
 // }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Future<Database> database = initDatabase();
@@ -53,7 +55,8 @@ class MyApp extends StatelessWidget {
 class DatabaseApp extends StatefulWidget {
   final Future<Database> db;
 
-  DatabaseApp(this.db);
+  // ignore: use_key_in_widget_constructors
+  const DatabaseApp(this.db);
 
   @override
   State<StatefulWidget> createState() => _DatabaseApp();
@@ -71,7 +74,7 @@ class _DatabaseApp extends State<DatabaseApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('계획 페이지'), actions: <Widget>[
+        appBar: AppBar(title: const Text('계획 페이지'), actions: <Widget>[
           ElevatedButton(
               onPressed: () async {
                 await Navigator.of(context).pushNamed('/clear');
@@ -79,8 +82,8 @@ class _DatabaseApp extends State<DatabaseApp> {
                   todoList = getTodos();
                 });
               },
-              child: Text(
-                '완료한 계획',
+              child: const Text(
+                '상세 페이지',
                 style: TextStyle(color: Colors.white),
               ))
         ]),
@@ -90,11 +93,11 @@ class _DatabaseApp extends State<DatabaseApp> {
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   case ConnectionState.waiting:
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   case ConnectionState.active:
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   case ConnectionState.done:
                     if (snapshot.hasData) {
                       return ListView.builder(
@@ -103,7 +106,7 @@ class _DatabaseApp extends State<DatabaseApp> {
                           return ListTile(
                             title: Text(
                               todo.title!,
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                             ),
                             subtitle: Container(
                               child: Column(
@@ -124,7 +127,7 @@ class _DatabaseApp extends State<DatabaseApp> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: Text('${todo.id} : ${todo.title}'),
-                                      content: Text('Todo를 체크하시겠습니까?'),
+                                      content: const Text('계획을 체크하시겠습니까?'),
                                       actions: <Widget>[
                                         TextButton(
                                             onPressed: () {
@@ -135,12 +138,12 @@ class _DatabaseApp extends State<DatabaseApp> {
                                               });
                                               Navigator.of(context).pop(todo);
                                             },
-                                            child: Text('예')),
+                                            child: const Text('예')),
                                         TextButton(
                                             onPressed: () {
                                               Navigator.of(context).pop(todo);
                                             },
-                                            child: Text('아니요')),
+                                            child: const Text('아니요')),
                                       ],
                                     );
                                   });
@@ -159,12 +162,12 @@ class _DatabaseApp extends State<DatabaseApp> {
                                             onPressed: () {
                                               Navigator.of(context).pop(todo);
                                             },
-                                            child: Text('예')),
+                                            child: const Text('예')),
                                         TextButton(
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('아니요')),
+                                            child: const Text('아니요')),
                                       ],
                                     );
                                   });
@@ -175,7 +178,7 @@ class _DatabaseApp extends State<DatabaseApp> {
                         itemCount: (snapshot.data as List<Todo>).length,
                       );
                     } else {
-                      return Text('No data');
+                      return const Text('No data');
                     }
                 }
                 return CircularProgressIndicator();
@@ -194,9 +197,9 @@ class _DatabaseApp extends State<DatabaseApp> {
                 }
               },
               heroTag: null,
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             FloatingActionButton(
@@ -204,7 +207,7 @@ class _DatabaseApp extends State<DatabaseApp> {
                 _allUpdate();
               },
               heroTag: null,
-              child: Icon(Icons.update),
+              child: const Icon(Icons.update),
             ),
           ],
           mainAxisAlignment: MainAxisAlignment.end,
