@@ -12,10 +12,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   Future<Database> initDatabase() async {
     return openDatabase(
       join(await getDatabasesPath(), 'tour_database.db'),
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
             future: Firebase.initializeApp(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                return Center(
+                return const Center(
                   child: Text('Error'),
                 );
               }
@@ -50,10 +52,10 @@ class MyApp extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.done) {
                 _getToken();
                 _initFirebaseMessaging(context);
-                return LoginPage();
+                return const LoginPage();
               }
 
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             },
@@ -77,7 +79,7 @@ class MyApp extends StatelessWidget {
                 content: Text(event.notification!.body!),
                 actions: [
                   TextButton(
-                    child: Text("ok"),
+                    child: const Text("ok"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -100,6 +102,7 @@ class MyApp extends StatelessWidget {
   _getToken() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
+    // ignore: avoid_print
     print("messaging.getToken() , ${await messaging.getToken()}");
   }
 }

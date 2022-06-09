@@ -27,7 +27,7 @@ class _FavoritePage extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('즐겨찾기'),
+        title: const Text('즐겨찾기'),
       ),
       body: Container(
         child: Center(
@@ -35,11 +35,11 @@ class _FavoritePage extends State<FavoritePage> {
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 case ConnectionState.waiting:
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 case ConnectionState.active:
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 case ConnectionState.done:
                   if (snapshot.hasData) {
                     return ListView.builder(
@@ -54,7 +54,7 @@ class _FavoritePage extends State<FavoritePage> {
                                 Hero(
                                     tag: 'tourinfo$index',
                                     child: Container(
-                                        margin: EdgeInsets.all(10),
+                                        margin: const EdgeInsets.all(10),
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
@@ -65,15 +65,15 @@ class _FavoritePage extends State<FavoritePage> {
                                                 fit: BoxFit.fill,
                                                 image: getImage(
                                                     info.imagePath))))),
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
+                                 Container(
                                   child: Column(
                                     children: <Widget>[
                                       Text(
                                         info.title!,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -126,7 +126,7 @@ class _FavoritePage extends State<FavoritePage> {
     if (imagePath != null) {
       return NetworkImage(imagePath);
     } else {
-      return AssetImage('repo/images/map_location.png');
+      return const AssetImage('repo/images/map_location.png');
     }
   }
 
@@ -138,7 +138,7 @@ class _FavoritePage extends State<FavoritePage> {
         _tourList = getTodos();
       });
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('즐겨찾기를 해제합니다')));
+          .showSnackBar(const SnackBar(content: Text('즐겨찾기를 해제합니다')));
     });
   }
 

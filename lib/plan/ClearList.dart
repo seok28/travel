@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'todo.dart';
 
+// ignore: must_be_immutable
 class ClearListApp extends StatefulWidget {
   Future<Database> database;
-  ClearListApp(this.database);
+  ClearListApp(this.database, {Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _ClearListApp();
 }
@@ -16,15 +17,10 @@ class _ClearListApp extends State<ClearListApp> {
   void initState() {
     super.initState();
     clearList = getClearList();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('계획 상세 페이지'),
@@ -67,7 +63,7 @@ class _ClearListApp extends State<ClearListApp> {
                     );
                   }
               }
-              return Text('No data');
+              return const Text('No data');
             },
             future: clearList,
           ),
@@ -79,19 +75,19 @@ class _ClearListApp extends State<ClearListApp> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('완료한 일 삭제'),
-                  content: Text('완료한 일을 모두 삭제할까요?'),
+                  title: const Text('완료한 일 삭제'),
+                  content: const Text('완료한 일을 모두 삭제할까요?'),
                   actions: <Widget>[
                     TextButton(
                         onPressed: () {
                           Navigator.of(context).pop(true);
                         },
-                        child: Text('예')),
+                        child: const Text('예')),
                     TextButton(
                         onPressed: () {
                           Navigator.of(context).pop(false);
                         },
-                        child: Text('아니요')),
+                        child: const Text('아니요')),
                   ],
                 );
               });
@@ -99,7 +95,7 @@ class _ClearListApp extends State<ClearListApp> {
             _removeAllTodos();
           }
         },
-        child: Icon(Icons.remove),
+        child: const Icon(Icons.remove),
       ),
     );
   }

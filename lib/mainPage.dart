@@ -17,7 +17,7 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
   TabController? controller;
   FirebaseDatabase? _database;
   DatabaseReference? reference;
-  String _databaseURL =
+  final String _databaseURL =
       'https://junsu-project-5a94e-default-rtdb.firebaseio.com/';
   String? id;
 
@@ -51,7 +51,7 @@ class _MainPage extends State<MainPage> with SingleTickerProviderStateMixin {
               db: widget.database,
               id: id,
             ),
-            MyApp(), // 즐겨 찾기
+            const MyApp(), // 즐겨 찾기
             SettingPage(
               databaseReference: reference,
               id: id,

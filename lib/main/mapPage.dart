@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -10,12 +12,13 @@ import 'package:junsu_project/data/listData.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:junsu_project/main/tourDetailPage.dart';
 
+// ignore: must_be_immutable
 class MapPage extends StatefulWidget {
   final DatabaseReference? databaseReference; // 실시간 데이터베이스 변수
   final Future<Database>? db; // 내부에 저장되는 데이터베이스
   final String? id; // 로그인한 아이디
   FirebaseDatabase database = FirebaseDatabase.instance;
-  MapPage({this.databaseReference, this.db, this.id});
+  MapPage({Key? key, this.databaseReference, this.db, this.id}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MapPage();
@@ -99,7 +102,7 @@ class _MapPage extends State<MapPage> {
                           contentTypeId: kind!.value,
                           page: page);
                     },
-                    child: Text(
+                    child: const Text(
                       '검색하기',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -118,7 +121,7 @@ class _MapPage extends State<MapPage> {
                           Hero(
                               tag: 'tourinfo$index',
                               child: Container(
-                                  margin: EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(10),
                                   width: 100.0,
                                   height: 100.0,
                                   decoration: BoxDecoration(
@@ -129,7 +132,7 @@ class _MapPage extends State<MapPage> {
                                           fit: BoxFit.fill,
                                           image: getImage(
                                               tourData[index].imagePath))))),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           Container(
@@ -137,7 +140,7 @@ class _MapPage extends State<MapPage> {
                               children: <Widget>[
                                 Text(
                                   tourData[index].title!,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -179,7 +182,7 @@ class _MapPage extends State<MapPage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               child: Text('drawer testing'),
               decoration: BoxDecoration(
                 color: Colors.blue,
@@ -187,7 +190,7 @@ class _MapPage extends State<MapPage> {
             ),
             UserAccountsDrawerHeader(
               accountName: Text('$widget!.id'),
-              accountEmail: Text('안녕하세요 '),
+              accountEmail:const  Text('안녕하세요 '),
             )
           ],
         ),
@@ -210,7 +213,7 @@ class _MapPage extends State<MapPage> {
     if (imagePath != null) {
       return NetworkImage(imagePath);
     } else {
-      return AssetImage('repo/images/map_location.png');
+      return const AssetImage('repo/images/map_location.png');
     }
   }
 
@@ -232,7 +235,7 @@ class _MapPage extends State<MapPage> {
         showDialog(
             context: context,
             builder: (context) {
-              return AlertDialog(
+              return const AlertDialog(
                 content: Text('마지막 데이터 입니다'),
               );
             });
@@ -245,6 +248,7 @@ class _MapPage extends State<MapPage> {
         }
       }
     } else {
+      
       print('error');
     }
   }

@@ -110,10 +110,10 @@ class _TourDetailPage extends State<TourDetailPage> {
                                   image: getImage(widget.tourData!.imagePath),
                                 )))),
                     Padding(
-                      padding: EdgeInsets.only(top: 20, bottom: 20),
+                      padding: const EdgeInsets.only(top: 20, bottom: 20),
                       child: Text(
                         widget.tourData!.address!,
-                        style: TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 20),
                       ),
                     ),
                     getGoogleMap(),
@@ -134,8 +134,8 @@ class _TourDetailPage extends State<TourDetailPage> {
                   color: Colors.lightBlueAccent,
                   child: Center(
                     child: Column(
-                      children: <Widget>[
-                        Text(
+                      children: const <Widget>[
+                         Text(
                           '후기',
                           style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
@@ -151,10 +151,10 @@ class _TourDetailPage extends State<TourDetailPage> {
             return Card(
               child: InkWell(
                 child: Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   child: Text(
                     '${reviews[index].id} : ${reviews[index].review}',
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ),
                 onDoubleTap: () {
@@ -181,7 +181,7 @@ class _TourDetailPage extends State<TourDetailPage> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('후기 쓰기'),
+                        title: const Text('후기 쓰기'),
                         content: TextField(
                           controller: _reviewTextController,
                         ),
@@ -199,17 +199,17 @@ class _TourDetailPage extends State<TourDetailPage> {
                                     .child(widget.id!)
                                     .set(review.toJson());
                               },
-                              child: Text('후기 쓰기')),
+                              child: const Text('후기 쓰기')),
                           MaterialButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text('종료하기')),
+                              child: const Text('종료하기')),
                         ],
                       );
                     });
               },
-              child: Text('댓글 쓰기'),
+              child: const Text('댓글 쓰기'),
             )
           ]))
         ],
@@ -240,7 +240,7 @@ class _TourDetailPage extends State<TourDetailPage> {
     if (imagePath != null) {
       return NetworkImage(imagePath);
     } else {
-      return AssetImage('repo/images/map_location.png');
+      return const AssetImage('repo/images/map_location.png');
     }
   }
 
@@ -249,10 +249,10 @@ class _TourDetailPage extends State<TourDetailPage> {
       child: Center(
         child: Column(
           children: <Widget>[
-            Text('데이터가 없습니다. 추가해주세요'),
+            const Text('데이터가 없습니다. 추가해주세요'),
             Text('시각 장애인 이용 점수 :  ${disableCheck1.floor()}'),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Slider(
                   value: disableCheck1,
                   min: 0,
@@ -265,7 +265,7 @@ class _TourDetailPage extends State<TourDetailPage> {
             ),
             Text('지체 장애인 이용 점수 : ${disableCheck2.floor()}'),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Slider(
                   value: disableCheck2,
                   min: 0,
@@ -290,7 +290,7 @@ class _TourDetailPage extends State<TourDetailPage> {
                   });
                 });
               },
-              child: Text('데이터 저장하기'),
+              child: const Text('데이터 저장하기'),
             )
           ],
         ),
@@ -319,34 +319,34 @@ class _TourDetailPage extends State<TourDetailPage> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.accessible, size: 40, color: Colors.orange),
+              const Icon(Icons.accessible, size: 40, color: Colors.orange),
               Text(
                 '지체 장애 이용 점수 : ${_disableInfo!.disable2}',
-                style: TextStyle(fontSize: 20),
+                style: const  TextStyle(fontSize: 20),
               )
             ],
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
             children: <Widget>[
-              Icon(
+              const Icon(
                 Icons.remove_red_eye,
                 size: 40,
                 color: Colors.orange,
               ),
               Text('시각 장애 이용 점수 : ${_disableInfo!.disable1}',
-                  style: TextStyle(fontSize: 20))
+                  style: const TextStyle(fontSize: 20))
             ],
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text('작성자  : ${_disableInfo!.id}'),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           MaterialButton(
@@ -355,7 +355,7 @@ class _TourDetailPage extends State<TourDetailPage> {
                 _disableWidget = false;
               });
             },
-            child: Text('새로 작성하기'),
+            child: const Text('새로 작성하기'),
           )
         ],
       ),

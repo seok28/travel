@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:junsu_project/data/user.dart';
 
 class SignPage extends StatefulWidget {
+  const SignPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _SignPage();
 }

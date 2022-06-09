@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
@@ -8,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:junsu_project/data/user.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _LoginPage();
 }
@@ -15,7 +19,7 @@ class LoginPage extends StatefulWidget {
 class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
   FirebaseDatabase? _database;
   DatabaseReference? reference;
-  String _databaseURL = 'https://junsu-project-5a94e-default-rtdb.firebaseio.com/';
+  final String _databaseURL = 'https://junsu-project-5a94e-default-rtdb.firebaseio.com/';
 
   double opacity = 0;
   AnimationController? _animationController;
