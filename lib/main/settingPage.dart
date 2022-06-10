@@ -105,9 +105,30 @@ class _SettingPage extends State<SettingPage> {
               ),
               MaterialButton(
                 onPressed: () {
-                  showsDialog(context);
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      '/', (Route<dynamic> route) => false);
+                  AlertDialog dialog = AlertDialog(
+                    title:
+                        const Text('로그아웃', style: TextStyle(color: Colors.red)),
+                    content: const Text('정말로 로그아웃 하시겠습니까?'),
+                    actions: <Widget>[
+                      MaterialButton(
+                          onPressed: () {
+                            showsDialog(context);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/', (Route<dynamic> route) => false);
+                          },
+                          child: const Text('예')),
+                      MaterialButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('아니요')),
+                    ],
+                  );
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return dialog;
+                      });
                 },
                 child: const Text(
                   '로그아웃',
@@ -134,6 +155,7 @@ class _SettingPage extends State<SettingPage> {
                                 .child('user')
                                 .child(widget.id!)
                                 .remove();
+
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 '/', (Route<dynamic> route) => false);
                           },
@@ -198,22 +220,22 @@ class _SettingPage extends State<SettingPage> {
       }
     });
   }
-}
 
-void showsDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      content: const ListTile(
-        title: Text("테스트"),
-        subtitle: Text("테스트에 성공했어요"),
-      ),
-      actions: <Widget>[
-        FlatButton(
-          child: const Text('Ok'),
-          onPressed: () => Navigator.of(context).pop(),
+  void showsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: const ListTile(
+          title: Text("로그아웃"),
+          subtitle: Text("로그아웃 되었습니다."),
         ),
-      ],
-    ),
-  );
+        actions: <Widget>[
+          FlatButton(
+            child: const Text('Ok'),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
+    );
+  }
 }

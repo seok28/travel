@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_is_empty
+// ignore_for_file: prefer_is_empty, deprecated_member_use
 
 import 'dart:async';
 import 'dart:convert';
@@ -16,10 +16,11 @@ class LoginPage extends StatefulWidget {
   State<StatefulWidget> createState() => _LoginPage();
 }
 
-class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
+class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
   FirebaseDatabase? _database;
   DatabaseReference? reference;
-  final String _databaseURL = 'https://junsu-project-5a94e-default-rtdb.firebaseio.com/';
+  final String _databaseURL =
+      'https://junsu-project-5a94e-default-rtdb.firebaseio.com/';
 
   double opacity = 0;
   AnimationController? _animationController;
@@ -137,15 +138,20 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                                         .onChildAdded
                                         .listen((event) {
                                       User user =
-                                      User.fromSnapshot(event.snapshot);
-                                      var bytes = utf8
-                                          .encode(_pwTextController!.value.text);
+                                          User.fromSnapshot(event.snapshot);
+                                      var bytes = utf8.encode(
+                                          _pwTextController!.value.text);
                                       var digest = sha1.convert(bytes);
                                       if (user.pw == digest.toString()) {
-                                        Navigator.of(context)
-                                            .pushReplacementNamed('/main',
-                                            arguments: _idTextController!
-                                                .value.text);
+                                        showsDialog(context);
+                                        Future.delayed(
+                                            const Duration(milliseconds: 1000),
+                                            (() {
+                                          Navigator.of(context)
+                                              .pushReplacementNamed('/main',
+                                                  arguments: _idTextController!
+                                                      .value.text);
+                                        }));
                                       } else {
                                         makeDialog('비밀번호가 틀립니다');
                                       }
@@ -177,5 +183,23 @@ class  _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
             content: Text(text),
           );
         });
+  }
+
+  void showsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => const AlertDialog(
+        content: ListTile(
+          title: Text("로그인 성공"),
+          subtitle: Text("로그인 성공하였습니다"),
+        ),
+        // actions: <Widget>[
+        //   FlatButton(
+        //     child: const Text('Ok'),
+        //     onPressed: () => Navigator.of(context).pop(),
+        //   ),
+        // ],
+      ),
+    );
   }
 }

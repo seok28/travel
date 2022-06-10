@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
             },
           );
         },
-        '/sign': (context) => SignPage(),
+        '/sign': (context) => const SignPage(),
         '/main': (context) => MainPage(database),
       },
     );
