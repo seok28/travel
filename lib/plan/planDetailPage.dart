@@ -1,6 +1,6 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:junsu_project/data/Plandata.dart';
 import 'package:sqflite/sqflite.dart';
 
 class PlanDetailPage extends StatefulWidget {
@@ -17,6 +17,6 @@ class PlanDetailPage extends StatefulWidget {
 class _PlanDetailPage extends State<PlanDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

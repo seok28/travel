@@ -59,117 +59,115 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              AnimatedBuilder(
-                animation: _animationController!,
-                builder: (context, widget) {
-                  return Transform.rotate(
-                    angle: _animation?.value,
-                    child: widget,
-                  );
-                },
-                child: const Icon(
-                  Icons.airplanemode_active,
-                  color: Colors.deepOrangeAccent,
-                  size: 80,
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            AnimatedBuilder(
+              animation: _animationController!,
+              builder: (context, widget) {
+                return Transform.rotate(
+                  angle: _animation?.value,
+                  child: widget,
+                );
+              },
+              child: const Icon(
+                Icons.airplanemode_active,
+                color: Colors.deepOrangeAccent,
+                size: 80,
+              ),
+            ),
+            const SizedBox(
+              height: 100,
+              child: Center(
+                child: Text(
+                  '석준수 졸작 ',
+                  style: TextStyle(fontSize: 30),
                 ),
               ),
-              const SizedBox(
-                height: 100,
-                child: Center(
-                  child: Text(
-                    '석준수 졸작 ',
-                    style: TextStyle(fontSize: 30),
+            ),
+            AnimatedOpacity(
+              opacity: opacity,
+              duration: const Duration(seconds: 1),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    width: 200,
+                    child: TextField(
+                      controller: _idTextController,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                          labelText: '아이디', border: OutlineInputBorder()),
+                    ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 200,
+                    child: TextField(
+                      controller: _pwTextController,
+                      obscureText: true,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                          labelText: '비밀번호', border: OutlineInputBorder()),
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      MaterialButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/sign');
+                          },
+                          child: const Text('회원가입')),
+                      MaterialButton(
+                          onPressed: () {
+                            if (_idTextController?.value.text.length == 0 ||
+                                _pwTextController?.value.text.length == 0) {
+                              makeDialog('빈칸이 있습니다');
+                            } else {
+                              reference!
+                                  .child(_idTextController!.value.text)
+                                  .onValue
+                                  .listen((event) {
+                                if (event.snapshot.value == null) {
+                                  makeDialog('아이디가 없습니다');
+                                } else {
+                                  reference!
+                                      .child(_idTextController!.value.text)
+                                      .onChildAdded
+                                      .listen((event) {
+                                    User user =
+                                        User.fromSnapshot(event.snapshot);
+                                    var bytes = utf8.encode(
+                                        _pwTextController!.value.text);
+                                    var digest = sha1.convert(bytes);
+                                    if (user.pw == digest.toString()) {
+                                      showsDialog(context);
+                                      Future.delayed(
+                                          const Duration(milliseconds: 1000),
+                                          (() {
+                                        Navigator.of(context)
+                                            .pushReplacementNamed('/main',
+                                                arguments: _idTextController!
+                                                    .value.text);
+                                      }));
+                                    } else {
+                                      makeDialog('비밀번호가 틀립니다');
+                                    }
+                                  });
+                                }
+                              });
+                            }
+                          },
+                          child: const Text('로그인'))
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  )
+                ],
               ),
-              AnimatedOpacity(
-                opacity: opacity,
-                duration: const Duration(seconds: 1),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 200,
-                      child: TextField(
-                        controller: _idTextController,
-                        maxLines: 1,
-                        decoration: const InputDecoration(
-                            labelText: '아이디', border: OutlineInputBorder()),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: 200,
-                      child: TextField(
-                        controller: _pwTextController,
-                        obscureText: true,
-                        maxLines: 1,
-                        decoration: const InputDecoration(
-                            labelText: '비밀번호', border: OutlineInputBorder()),
-                      ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        MaterialButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('/sign');
-                            },
-                            child: const Text('회원가입')),
-                        MaterialButton(
-                            onPressed: () {
-                              if (_idTextController?.value.text.length == 0 ||
-                                  _pwTextController?.value.text.length == 0) {
-                                makeDialog('빈칸이 있습니다');
-                              } else {
-                                reference!
-                                    .child(_idTextController!.value.text)
-                                    .onValue
-                                    .listen((event) {
-                                  if (event.snapshot.value == null) {
-                                    makeDialog('아이디가 없습니다');
-                                  } else {
-                                    reference!
-                                        .child(_idTextController!.value.text)
-                                        .onChildAdded
-                                        .listen((event) {
-                                      User user =
-                                          User.fromSnapshot(event.snapshot);
-                                      var bytes = utf8.encode(
-                                          _pwTextController!.value.text);
-                                      var digest = sha1.convert(bytes);
-                                      if (user.pw == digest.toString()) {
-                                        showsDialog(context);
-                                        Future.delayed(
-                                            const Duration(milliseconds: 1000),
-                                            (() {
-                                          Navigator.of(context)
-                                              .pushReplacementNamed('/main',
-                                                  arguments: _idTextController!
-                                                      .value.text);
-                                        }));
-                                      } else {
-                                        makeDialog('비밀번호가 틀립니다');
-                                      }
-                                    });
-                                  }
-                                });
-                              }
-                            },
-                            child: const Text('로그인'))
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    )
-                  ],
-                ),
-              )
-            ],
-            mainAxisAlignment: MainAxisAlignment.center,
-          ),
+            )
+          ],
+          mainAxisAlignment: MainAxisAlignment.center,
         ),
       ),
     );

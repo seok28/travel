@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -7,7 +9,6 @@ import 'package:junsu_project/data/disableInfo.dart';
 import 'package:junsu_project/data/reviews.dart';
 import 'dart:math' as math;
 import 'package:junsu_project/data/tour.dart';
-import 'package:flutter/material.dart';
 
 class TourDetailPage extends StatefulWidget {
   final TourData? tourData;
@@ -15,14 +16,16 @@ class TourDetailPage extends StatefulWidget {
   final DatabaseReference? databaseReference;
   final String? id;
 
-  TourDetailPage({this.tourData, this.index, this.databaseReference, this.id});
+  // ignore: use_key_in_widget_constructors
+  const TourDetailPage(
+      {this.tourData, this.index, this.databaseReference, this.id});
 
   @override
   State<StatefulWidget> createState() => _TourDetailPage();
 }
 
 class _TourDetailPage extends State<TourDetailPage> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   CameraPosition? _GoogleMapCamera;
   TextEditingController? _reviewTextController;
@@ -92,37 +95,34 @@ class _TourDetailPage extends State<TourDetailPage> {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Hero(
-                        tag: 'tourinfo${widget.index}',
-                        child: Container(
-                            width: 300.0,
-                            height: 300.0,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: Colors.black, width: 1),
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: getImage(widget.tourData!.imagePath),
-                                )))),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 20),
-                      child: Text(
-                        widget.tourData!.address!,
-                        style: const TextStyle(fontSize: 20),
-                      ),
+            Center(
+              child: Column(
+                children: <Widget>[
+                  Hero(
+                      tag: 'tourinfo${widget.index}',
+                      child: Container(
+                          width: 300.0,
+                          height: 300.0,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.black, width: 1),
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: getImage(widget.tourData!.imagePath),
+                              )))),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 20),
+                    child: Text(
+                      widget.tourData!.address!,
+                      style: const TextStyle(fontSize: 20),
                     ),
-                    getGoogleMap(),
-                    _disableWidget == false
-                        ? setDisableWidget()
-                        : showDisableWidget(),
-                    //  reviewWidget()
-                  ],
-                ),
+                  ),
+                  getGoogleMap(),
+                  _disableWidget == false
+                      ? setDisableWidget()
+                      : showDisableWidget(),
+                  //  reviewWidget()
+                ],
               ),
             ),
           ])),
@@ -135,7 +135,7 @@ class _TourDetailPage extends State<TourDetailPage> {
                   child: Center(
                     child: Column(
                       children: const <Widget>[
-                         Text(
+                        Text(
                           '후기',
                           style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
@@ -245,55 +245,53 @@ class _TourDetailPage extends State<TourDetailPage> {
   }
 
   Widget setDisableWidget() {
-    return Container(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            const Text('데이터가 없습니다. 추가해주세요'),
-            Text('시각 장애인 이용 점수 :  ${disableCheck1.floor()}'),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Slider(
-                  value: disableCheck1,
-                  min: 0,
-                  max: 10,
-                  onChanged: (value) {
-                    setState(() {
-                      disableCheck1 = value;
-                    });
-                  }),
-            ),
-            Text('지체 장애인 이용 점수 : ${disableCheck2.floor()}'),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Slider(
-                  value: disableCheck2,
-                  min: 0,
-                  max: 10,
-                  onChanged: (value) {
-                    setState(() {
-                      disableCheck2 = value;
-                    });
-                  }),
-            ),
-            MaterialButton(
-              onPressed: () {
-                DisableInfo info = DisableInfo(widget.id, disableCheck1.floor(),
-                    disableCheck2.floor(), DateTime.now().toIso8601String());
-                widget.databaseReference!
-                    .child("tour")
-                    .child(widget.tourData!.id.toString())
-                    .set(info.toJson())
-                    .then((value) {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          const Text('데이터가 없습니다. 추가해주세요'),
+          Text('시각 장애인 이용 점수 :  ${disableCheck1.floor()}'),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Slider(
+                value: disableCheck1,
+                min: 0,
+                max: 10,
+                onChanged: (value) {
                   setState(() {
-                    _disableWidget = true;
+                    disableCheck1 = value;
                   });
+                }),
+          ),
+          Text('지체 장애인 이용 점수 : ${disableCheck2.floor()}'),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Slider(
+                value: disableCheck2,
+                min: 0,
+                max: 10,
+                onChanged: (value) {
+                  setState(() {
+                    disableCheck2 = value;
+                  });
+                }),
+          ),
+          MaterialButton(
+            onPressed: () {
+              DisableInfo info = DisableInfo(widget.id, disableCheck1.floor(),
+                  disableCheck2.floor(), DateTime.now().toIso8601String());
+              widget.databaseReference!
+                  .child("tour")
+                  .child(widget.tourData!.id.toString())
+                  .set(info.toJson())
+                  .then((value) {
+                setState(() {
+                  _disableWidget = true;
                 });
-              },
-              child: const Text('데이터 저장하기'),
-            )
-          ],
-        ),
+              });
+            },
+            child: const Text('데이터 저장하기'),
+          )
+        ],
       ),
     );
   }
@@ -322,7 +320,7 @@ class _TourDetailPage extends State<TourDetailPage> {
               const Icon(Icons.accessible, size: 40, color: Colors.orange),
               Text(
                 '지체 장애 이용 점수 : ${_disableInfo!.disable2}',
-                style: const  TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               )
             ],
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

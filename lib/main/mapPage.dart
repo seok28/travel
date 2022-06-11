@@ -135,7 +135,7 @@ class _MapPage extends State<MapPage> {
                           const SizedBox(
                             width: 20,
                           ),
-                          Container(
+                          SizedBox(
                             child: Column(
                               children: <Widget>[
                                 Text(

@@ -8,7 +8,8 @@ import 'package:sqflite/sqflite.dart';
 
 class MainPage extends StatefulWidget {
   final Future<Database> database;
-  MainPage(this.database);
+  // ignore: use_key_in_widget_constructors
+  const MainPage(this.database);
   @override
   State<StatefulWidget> createState() => _MainPage();
 }

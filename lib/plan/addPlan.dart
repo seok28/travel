@@ -30,36 +30,34 @@ class _AddPlanApp extends State<AddPlanApp> {
       appBar: AppBar(
         title: const Text('Todo 추가'),
       ),
-      body: Container(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  controller: titleController,
-                  decoration: const InputDecoration(labelText: '제목'),
-                ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: titleController,
+                decoration: const InputDecoration(labelText: '제목'),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  controller: contentController,
-                  decoration: const InputDecoration(labelText: '할일'),
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: contentController,
+                decoration: const InputDecoration(labelText: '할일'),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Todo todo = Todo(
-                      title: titleController!.value.text,
-                      content: contentController!.value.text,
-                      active: 0);
-                  Navigator.of(context).pop(todo);
-                },
-                child: const Text('저장하기'),
-              )
-            ],
-          ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Todo todo = Todo(
+                    title: titleController!.value.text,
+                    content: contentController!.value.text,
+                    active: 0);
+                Navigator.of(context).pop(todo);
+              },
+              child: const Text('저장하기'),
+            )
+          ],
         ),
       ),
     );

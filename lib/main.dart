@@ -73,7 +73,8 @@ class MyApp extends StatelessWidget {
       if (pushCheck!) {
         showDialog(
             context: context,
-            builder: (BuildContext) {
+            // ignore: non_constant_identifier_names
+            builder: (BuildContext BuildContext) {
               return AlertDialog(
                 title: Text(event.notification!.title!),
                 content: Text(event.notification!.body!),

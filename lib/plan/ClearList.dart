@@ -25,48 +25,44 @@ class _ClearListApp extends State<ClearListApp> {
       appBar: AppBar(
         title: const Text('계획 상세 페이지'),
       ),
-      body: Container(
-        child: Center(
-          child: FutureBuilder(
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                  return const CircularProgressIndicator();
-                case ConnectionState.waiting:
-                  return const CircularProgressIndicator();
-                case ConnectionState.active:
-                  return const CircularProgressIndicator();
-                case ConnectionState.done:
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        Todo todo = (snapshot.data as List<Todo>)[index];
-                        return ListTile(
-                          title: Text(
-                            todo.title!,
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                          subtitle: Container(
-                            child: Column(
-                              children: <Widget>[
-                                Text(todo.content!),
-                                Container(
-                                  height: 1,
-                                  color: Colors.blue,
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      itemCount: (snapshot.data as List<Todo>).length,
-                    );
-                  }
-              }
-              return const Text('No data');
-            },
-            future: clearList,
-          ),
+      body: Center(
+        child: FutureBuilder(
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return const CircularProgressIndicator();
+              case ConnectionState.waiting:
+                return const CircularProgressIndicator();
+              case ConnectionState.active:
+                return const CircularProgressIndicator();
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      Todo todo = (snapshot.data as List<Todo>)[index];
+                      return ListTile(
+                        title: Text(
+                          todo.title!,
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        subtitle: Column(
+                          children: <Widget>[
+                            Text(todo.content!),
+                            Container(
+                              height: 1,
+                              color: Colors.blue,
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                    itemCount: (snapshot.data as List<Todo>).length,
+                  );
+                }
+            }
+            return const Text('No data');
+          },
+          future: clearList,
         ),
       ),
       floatingActionButton: FloatingActionButton(

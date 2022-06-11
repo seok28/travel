@@ -87,104 +87,100 @@ class _DatabaseApp extends State<DatabaseApp> {
                 style: TextStyle(color: Colors.white),
               ))
         ]),
-        body: Container(
-          child: Center(
-            child: FutureBuilder(
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return const CircularProgressIndicator();
-                  case ConnectionState.waiting:
-                    return const CircularProgressIndicator();
-                  case ConnectionState.active:
-                    return const CircularProgressIndicator();
-                  case ConnectionState.done:
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        itemBuilder: (context, index) {
-                          Todo todo = (snapshot.data as List<Todo>)[index];
-                          return ListTile(
-                            title: Text(
-                              todo.title!,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                            subtitle: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(todo.content!),
-                                  Text(
-                                      '체크 : ${todo.active == 1 ? 'true' : 'false'}'),
-                                  Container(
-                                    height: 1,
-                                    color: Colors.blue,
-                                  )
-                                ],
-                              ),
-                            ),
-                            onTap: () async {
-                              Todo result = await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('${todo.id} : ${todo.title}'),
-                                      content: const Text('계획을 체크하시겠습니까?'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                todo.active == 1
-                                                    ? todo.active = 0
-                                                    : todo.active = 1;
-                                              });
-                                              Navigator.of(context).pop(todo);
-                                            },
-                                            child: const Text('예')),
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop(todo);
-                                            },
-                                            child: const Text('아니요')),
-                                      ],
-                                    );
-                                  });
-                              _updateTodo(result);
-                            },
-                            onLongPress: () async {
-                              Todo result = await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('${todo.id} : ${todo.title}'),
-                                      content:
-                                          Text('${todo.content}를 삭제하시겠습니까?'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop(todo);
-                                            },
-                                            child: const Text('예')),
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('아니요')),
-                                      ],
-                                    );
-                                  });
-                              _deleteTodo(result);
-                            },
-                          );
-                        },
-                        itemCount: (snapshot.data as List<Todo>).length,
-                      );
-                    } else {
-                      return const Text('No data');
-                    }
-                }
-                return CircularProgressIndicator();
-              },
-              future: todoList,
-            ),
+        body: Center(
+          child: FutureBuilder(
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return const CircularProgressIndicator();
+                case ConnectionState.waiting:
+                  return const CircularProgressIndicator();
+                case ConnectionState.active:
+                  return const CircularProgressIndicator();
+                case ConnectionState.done:
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        Todo todo = (snapshot.data as List<Todo>)[index];
+                        return ListTile(
+                          title: Text(
+                            todo.title!,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          subtitle: Column(
+                            children: <Widget>[
+                              Text(todo.content!),
+                              Text(
+                                  '체크 : ${todo.active == 1 ? 'true' : 'false'}'),
+                              Container(
+                                height: 1,
+                                color: Colors.blue,
+                              )
+                            ],
+                          ),
+                          onTap: () async {
+                            Todo result = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('${todo.id} : ${todo.title}'),
+                                    content: const Text('계획을 체크하시겠습니까?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              todo.active == 1
+                                                  ? todo.active = 0
+                                                  : todo.active = 1;
+                                            });
+                                            Navigator.of(context).pop(todo);
+                                          },
+                                          child: const Text('예')),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(todo);
+                                          },
+                                          child: const Text('아니요')),
+                                    ],
+                                  );
+                                });
+                            _updateTodo(result);
+                          },
+                          onLongPress: () async {
+                            Todo result = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('${todo.id} : ${todo.title}'),
+                                    content:
+                                        Text('${todo.content}를 삭제하시겠습니까?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(todo);
+                                          },
+                                          child: const Text('예')),
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('아니요')),
+                                    ],
+                                  );
+                                });
+                            _deleteTodo(result);
+                          },
+                        );
+                      },
+                      itemCount: (snapshot.data as List<Todo>).length,
+                    );
+                  } else {
+                    return const Text('No data');
+                  }
+              }
+              return CircularProgressIndicator();
+            },
+            future: todoList,
           ),
         ),
         floatingActionButton: Column(

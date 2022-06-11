@@ -9,7 +9,8 @@ class FavoritePage extends StatefulWidget {
   final Future<Database>? db;
   final String? id;
 
-  FavoritePage({this.databaseReference, this.db, this.id});
+  // ignore: use_key_in_widget_constructors
+  const FavoritePage({this.databaseReference, this.db, this.id});
 
   @override
   State<StatefulWidget> createState() => _FavoritePage();
@@ -29,94 +30,92 @@ class _FavoritePage extends State<FavoritePage> {
       appBar: AppBar(
         title: const Text('즐겨찾기'),
       ),
-      body: Container(
-        child: Center(
-          child: FutureBuilder(
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                  return const CircularProgressIndicator();
-                case ConnectionState.waiting:
-                  return const CircularProgressIndicator();
-                case ConnectionState.active:
-                  return const CircularProgressIndicator();
-                case ConnectionState.done:
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        List<TourData> tourList =
-                            snapshot.data as List<TourData>;
-                        TourData info = tourList[index];
-                        return Card(
-                          child: InkWell(
-                            child: Row(
-                              children: <Widget>[
-                                Hero(
-                                    tag: 'tourinfo$index',
-                                    child: Container(
-                                        margin: const EdgeInsets.all(10),
-                                        width: 100.0,
-                                        height: 100.0,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: Colors.black, width: 1),
-                                            image: DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: getImage(
-                                                    info.imagePath))))),
-                                const SizedBox(
-                                  width: 20,
+      body: Center(
+        child: FutureBuilder(
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return const CircularProgressIndicator();
+              case ConnectionState.waiting:
+                return const CircularProgressIndicator();
+              case ConnectionState.active:
+                return const CircularProgressIndicator();
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      List<TourData> tourList =
+                          snapshot.data as List<TourData>;
+                      TourData info = tourList[index];
+                      return Card(
+                        child: InkWell(
+                          child: Row(
+                            children: <Widget>[
+                              Hero(
+                                  tag: 'tourinfo$index',
+                                  child: Container(
+                                      margin: const EdgeInsets.all(10),
+                                      width: 100.0,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: Colors.black, width: 1),
+                                          image: DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: getImage(
+                                                  info.imagePath))))),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                               SizedBox(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      info.title!,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text('주소 : ${info.address}'),
+                                    info.tel != 'null'
+                                        ? Text('전화 번호 : ${info.tel}')
+                                        : Container(),
+                                  ],
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                 ),
-                                 Container(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        info.title!,
-                                        style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text('주소 : ${info.address}'),
-                                      info.tel != 'null'
-                                          ? Text('전화 번호 : ${info.tel}')
-                                          : Container(),
-                                    ],
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                  ),
-                                  width:
-                                      MediaQuery.of(context).size.width - 150,
-                                )
-                              ],
-                            ),
-                            onTap: () {
-                              // 상세페이지 이동은 TourDetailPage를 재사용
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => TourDetailPage(
-                                        id: widget.id,
-                                        tourData: info,
-                                        index: index,
-                                        databaseReference:
-                                            widget.databaseReference,
-                                      )));
-                            },
-                            onDoubleTap: () {
-                              deleteTour(widget.db!, info);
-                            },
+                                width:
+                                    MediaQuery.of(context).size.width - 150,
+                              )
+                            ],
                           ),
-                        );
-                      },
-                      itemCount: (snapshot.data! as List<TourData>).length,
-                    );
-                  } else {
-                    return Text('No data');
-                  }
-              }
-              return CircularProgressIndicator();
-            },
-            future: _tourList,
-          ),
+                          onTap: () {
+                            // 상세페이지 이동은 TourDetailPage를 재사용
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => TourDetailPage(
+                                      id: widget.id,
+                                      tourData: info,
+                                      index: index,
+                                      databaseReference:
+                                          widget.databaseReference,
+                                    )));
+                          },
+                          onDoubleTap: () {
+                            deleteTour(widget.db!, info);
+                          },
+                        ),
+                      );
+                    },
+                    itemCount: (snapshot.data! as List<TourData>).length,
+                  );
+                } else {
+                  return const Text('No data');
+                }
+            }
+            return CircularProgressIndicator();
+          },
+          future: _tourList,
         ),
       ),
     );
