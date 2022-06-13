@@ -27,8 +27,9 @@ class _AddPlanApp extends State<AddPlanApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Todo 추가'),
+        title: const Text('계획 추가'),
       ),
       body: Center(
         child: Column(

@@ -18,7 +18,8 @@ class MapPage extends StatefulWidget {
   final Future<Database>? db; // 내부에 저장되는 데이터베이스
   final String? id; // 로그인한 아이디
   FirebaseDatabase database = FirebaseDatabase.instance;
-  MapPage({Key? key, this.databaseReference, this.db, this.id}) : super(key: key);
+  MapPage({Key? key, this.databaseReference, this.db, this.id})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MapPage();
@@ -35,7 +36,8 @@ class _MapPage extends State<MapPage> {
   Item? kind;
   // ignore: unused_field
   TourData? _tourData;
-  int page = 1;
+  int page=1;
+  
 
   @override
   void initState() {
@@ -61,121 +63,118 @@ class _MapPage extends State<MapPage> {
       appBar: AppBar(
         title: const Text('검색하기'),
       ),
-      body: Container(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  DropdownButton<Item>(
-                    value: area,
-                    onChanged: (value) {
-                      Item selectedItem = value!;
-                      setState(() {
-                        area = selectedItem;
-                      });
-                    },
-                    items: list,
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                DropdownButton<Item>(
+                  value: area,
+                  onChanged: (value) {
+                    Item selectedItem = value!;
+                    setState(() {
+                      area = selectedItem;
+                    });
+                  },
+                  items: list,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                DropdownButton<Item>(
+                  items: sublist,
+                  onChanged: (value) {
+                    Item selectedItem = value!;
+                    setState(() {
+                      kind = selectedItem;
+                    });
+                  },
+                  value: kind,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    page = 1;
+                    tourData.clear();
+                    getAreaList(
+                        area: area!.value,
+                        contentTypeId: kind!.value,
+                        page: page);
+                  },
+                  child: const Text(
+                    '검색하기',
+                    style: TextStyle(color: Colors.white),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  DropdownButton<Item>(
-                    items: sublist,
-                    onChanged: (value) {
-                      Item selectedItem = value!;
-                      setState(() {
-                        kind = selectedItem;
-                      });
-                    },
-                    value: kind,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      page = 1;
-                      tourData.clear();
-                      getAreaList(
-                          area: area!.value,
-                          contentTypeId: kind!.value,
-                          page: page);
-                    },
-                    child: const Text(
-                      '검색하기',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: Colors.blueAccent,
-                  )
-                ],
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-              ),
-              Expanded(
-                  child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: InkWell(
-                      child: Row(
-                        children: <Widget>[
-                          Hero(
-                              tag: 'tourinfo$index',
-                              child: Container(
-                                  margin: const EdgeInsets.all(10),
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                          color: Colors.black, width: 1),
-                                      image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: getImage(
-                                              tourData[index].imagePath))))),
-                          const SizedBox(
-                            width: 20,
+                  color: Colors.blueAccent,
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            ),
+            Expanded(
+                child: ListView.builder(
+              itemBuilder: (context, index) {
+                return Card(
+                  child: InkWell(
+                    child: Row(
+                      children: <Widget>[
+                        Hero(
+                            tag: 'tourinfo$index',
+                            child: Container(
+                                margin: const EdgeInsets.all(10),
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: Colors.black, width: 1),
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: getImage(
+                                            tourData[index].imagePath))))),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        SizedBox(
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                tourData[index].title!,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Text('주소 : ${tourData[index].address}'),
+                              tourData[index].tel != null
+                                  ? Text('전화 번호 : ${tourData[index].tel}')
+                                  : Container(),
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           ),
-                          SizedBox(
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  tourData[index].title!,
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text('주소 : ${tourData[index].address}'),
-                                tourData[index].tel != null
-                                    ? Text('전화 번호 : ${tourData[index].tel}')
-                                    : Container(),
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            ),
-                            width: MediaQuery.of(context).size.width - 150,
-                          )
-                        ],
-                      ),
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TourDetailPage(
-                                  id: widget.id,
-                                  tourData: tourData[index],
-                                  index: index,
-                                  databaseReference: widget.databaseReference,
-                                )));
-                      },
-                      onDoubleTap: () {
-                        insertTour(widget.db!, tourData[index]); //onTap
-                      },
+                          width: MediaQuery.of(context).size.width - 150,
+                        )
+                      ],
                     ),
-                  );
-                },
-                itemCount: tourData.length,
-                controller: _scrollController,
-              ))
-            ],
-            mainAxisAlignment: MainAxisAlignment.start,
-          ),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => TourDetailPage(
+                                id: widget.id,
+                                tourData: tourData[index],
+                                index: index,
+                                databaseReference: widget.databaseReference,
+                              )));
+                    },
+                    onDoubleTap: () {
+                      insertTour(widget.db!, tourData[index]); //onTap
+                    },
+                  ),
+                );
+              },
+              itemCount: tourData.length,
+              controller: _scrollController,
+            ))
+          ],
+          mainAxisAlignment: MainAxisAlignment.start,
         ),
       ),
       drawer: Drawer(
@@ -190,7 +189,7 @@ class _MapPage extends State<MapPage> {
             ),
             UserAccountsDrawerHeader(
               accountName: Text('$widget!.id'),
-              accountEmail:const  Text('안녕하세요 '),
+              accountEmail: const Text('안녕하세요 '),
             )
           ],
         ),
@@ -248,7 +247,6 @@ class _MapPage extends State<MapPage> {
         }
       }
     } else {
-      
       print('error');
     }
   }

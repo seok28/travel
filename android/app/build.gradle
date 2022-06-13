@@ -21,6 +21,8 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -48,7 +50,10 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled = true
     }
+//    signingConfigs{release{keyAlias keystoreProperties['keyAlias']keyPassword keystoreProperties['keyPassword'] storeFile file(keystoreProperties['storeFile'])storePassword keystoreProperties['storePassword']}}
+
 
     buildTypes {
         release {
@@ -65,5 +70,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation("androidx.multidex:multidex:2.0.1")
 }
 apply plugin: 'com.google.gms.google-services'

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kbu.junsu_project.junsu_project">
    <application
-        android:label="junsu_project"
+        android:label="준수플래너"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
