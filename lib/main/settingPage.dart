@@ -22,46 +22,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPage extends State<SettingPage> {
   bool pushCheck = true;
 
-  // BannerAd? _banner;
-  // bool _loadingBanner = false;
-
-  // Future<void> _createAnchoredBanner(BuildContext context) async {
-  //   final AnchoredAdaptiveBannerAdSize? size =
-  //       await AdSize.getAnchoredAdaptiveBannerAdSize(
-  //     Orientation.portrait,
-  //     MediaQuery.of(context).size.width.truncate(),
-  //   );
-  //   if (size == null) {
-  //     print('Unable to get height of anchored banner.');
-  //     return;
-  //   }
-  //   final BannerAd banner = BannerAd(
-  //     size: size,
-  //     request: AdRequest(),
-  //     adUnitId: BannerAd.testAdUnitId,
-  //     listener: BannerAdListener(
-  //       onAdLoaded: (Ad ad) {
-  //         print('$BannerAd loaded.');
-  //         setState(() {
-  //           _banner = ad as BannerAd?;
-  //         });
-  //       },
-  //       onAdFailedToLoad: (Ad ad, LoadAdError error) {
-  //         print('$BannerAd failedToLoad: $error');
-  //         ad.dispose();
-  //       },
-  //       onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
-  //       onAdClosed: (Ad ad) => print('$BannerAd onAdClosed.'),
-  //     ),
-  //   );
-  //   return banner.load();
-  // }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _banner!.dispose();
-  // }
+ 
 
   @override
   void initState() {
@@ -71,10 +32,7 @@ class _SettingPage extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
-    // if (!_loadingBanner) {
-    //   _loadingBanner = true;
-    //   _createAnchoredBanner(context);
-    // }
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('설정하기'),
