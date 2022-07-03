@@ -144,7 +144,7 @@ class _SignPage extends State<SignPage> {
       builder: (context) => const AlertDialog(
         content: ListTile(
           title: Text("회원가입 성공"),
-          subtitle: Text("회원가입에 성공하였습니다"),
+          subtitle: Text("메인화면으로 이동합니다."),
         ),
       ),
     );
