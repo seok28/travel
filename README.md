@@ -32,7 +32,7 @@
 |:---|:---:|
 | favoritePage.dart| 즐겨찾기 기능|
 | mapPage.dart| 메인 맵 페이지 기능 |
-| settingPage.dart| 설정 기능 |
+| settingPage.dart|  설정 기능 |
 | tourDetailPage.dart| 구글 맵,장애인,리뷰기능|
 
 
