@@ -130,7 +130,7 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                                   .onValue
                                   .listen((event) {
                                 if (event.snapshot.value == null) {
-                                  makeDialog('아이디가 없습니다');
+                                  makeDialog('아이디가 없습니다.');
                                 } else {
                                   reference!
                                       .child(_idTextController!.value.text)
