@@ -169,7 +169,7 @@ class _SettingPage extends State<SettingPage> {
           subtitle: Text("로그아웃 되었습니다."),
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: const Text('Ok'),
             onPressed: () => Navigator.of(context).pop(),
           ),
@@ -206,7 +206,7 @@ class _SettingPage extends State<SettingPage> {
               ],
             ),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: const Text("확인"),
                 onPressed: () {
                   Navigator.pop(context);

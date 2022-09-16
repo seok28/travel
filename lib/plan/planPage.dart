@@ -143,7 +143,7 @@ class _DatabaseApp extends State<DatabaseApp> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: Text('${todo.id} : ${todo.title}'),
-                                    content: Text('${todo.content}를 삭제하시겠습니까??'),
+                                    content: Text('${todo.content}를 삭제하시겠습니까?'),
                                     actions: <Widget>[
                                       TextButton(
                                           onPressed: () {
