@@ -80,7 +80,7 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
               height: 100,
               child: Center(
                 child: Text(
-                  '석준수 졸작 ',
+                  '심플 트립 플래너 ',
                   style: TextStyle(fontSize: 30),
                 ),
               ),
@@ -138,8 +138,8 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
                                       .listen((event) {
                                     User user =
                                         User.fromSnapshot(event.snapshot);
-                                    var bytes = utf8.encode(
-                                        _pwTextController!.value.text);
+                                    var bytes = utf8
+                                        .encode(_pwTextController!.value.text);
                                     var digest = sha1.convert(bytes);
                                     if (user.pw == digest.toString()) {
                                       showsDialog(context);
@@ -185,7 +185,6 @@ class _LoginPage extends State<LoginPage> with SingleTickerProviderStateMixin {
 
   void showsDialog(BuildContext context) {
     showDialog(
-      
       context: context,
       builder: (context) => const AlertDialog(
         content: ListTile(

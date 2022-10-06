@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<Database> database = initDatabase();
     return MaterialApp(
-      title: '석준수 졸작',
+      title: '심플 트립 플래너',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
