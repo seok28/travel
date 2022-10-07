@@ -23,7 +23,7 @@ class _ClearListApp extends State<ClearListApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('계획 상세 페이지'),
+        title: const Text('계획 상세 페이지 '),
       ),
       body: Center(
         child: FutureBuilder(
